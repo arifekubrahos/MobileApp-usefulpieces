@@ -3,7 +3,10 @@ package com.example.arife.gpsaddfirebase;
 import android.*;
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
+import android.media.audiofx.BassBoost;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,22 +30,28 @@ public class MainActivity extends AppCompatActivity {
         GPSLocation gps = new GPSLocation(getApplicationContext());
         Location location = gps.getLocation();
 
+        if(location == null){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("GPS'i aç:");
+            alertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent in = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(in);
+                }
+            });
+            alertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
+                }
+            });
+            alertDialog.show();
+        }else{
+            Log.d("ltitude",""+location.getLatitude());
+            Log.d("longlitude",""+location.getLongitude());
+        }
 
-        /* AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("GPS'i aç:");
-        alertDialog.setPositiveButton("Evet", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        alertDialog.setNegativeButton("Hayır", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });*/
 
 
 

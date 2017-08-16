@@ -25,7 +25,7 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by Arife on 14.08.2017.
  */
 
-public class GPSLocation implements LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener  {
+public class GPSLocation implements LocationListener{
     private LocationManager locationManager;
     private Context context;
 
@@ -36,7 +36,7 @@ public class GPSLocation implements LocationListener, GoogleApiClient.Connection
 
     public Location getLocation() {
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-           Log.e("error:","permissionda hata");
+            Log.e("error:","permissionda hata");
             return null;
         }
         try{
@@ -46,7 +46,7 @@ public class GPSLocation implements LocationListener, GoogleApiClient.Connection
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (isGPSEnabled) {
                 //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 10, this);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,6000,10,this);
                 Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 return loc;
             }
@@ -64,10 +64,9 @@ public class GPSLocation implements LocationListener, GoogleApiClient.Connection
 
 
 
-
     @Override
     public void onLocationChanged(Location location) {
-
+        Log.d("location",""+location.getLatitude()+location.getLongitude());
     }
 
     @Override
@@ -85,19 +84,4 @@ public class GPSLocation implements LocationListener, GoogleApiClient.Connection
 
     }
 
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 }
