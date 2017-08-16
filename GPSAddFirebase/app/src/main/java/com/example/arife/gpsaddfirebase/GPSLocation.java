@@ -56,6 +56,7 @@ public class GPSLocation implements LocationListener{
         }
         catch (Exception e){
             e.printStackTrace();
+            Log.e("salak error",""+e);
         }
 
         return null;
