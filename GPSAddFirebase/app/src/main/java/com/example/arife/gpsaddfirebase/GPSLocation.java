@@ -13,11 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -40,14 +35,12 @@ public class GPSLocation implements LocationListener{
             return null;
         }
         try{
-            //burdaişler kopuyor locationrequeste bak
-            // LocationRequest locationRequest = new LocationRequest().
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (isGPSEnabled) {
-                //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,6000,10,this);
                 Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Log.d("loc",""+loc);
                 return loc;
             }
             else{
@@ -55,8 +48,9 @@ public class GPSLocation implements LocationListener{
             }
         }
         catch (Exception e){
+            Log.e("error",""+e);
             e.printStackTrace();
-            Log.e("salak error",""+e);
+
         }
 
         return null;

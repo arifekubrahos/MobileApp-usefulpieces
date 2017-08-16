@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 123);
         GPSLocation gps = new GPSLocation(getApplicationContext());
         Location location = gps.getLocation();
+        Log.d("anasayfa",""+location);
+
 
         if(location == null){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             });
             alertDialog.show();
         }else{
-            Log.d("ltitude",""+location.getLatitude());
+            Log.d("latitude",""+location.getLatitude());
             Log.d("longlitude",""+location.getLongitude());
         }
 
